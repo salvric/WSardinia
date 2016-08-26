@@ -1,0 +1,30 @@
+# Easy Admin Bundle
+easy_admin:
+    site_name: 'WS Admin panel'
+    design:
+        color_scheme: 'light'
+        brand_color: '#000000'
+    entities:
+        User:
+            class: AppBundle\Entity\User
+            image_base_path: '/images/profile'
+            disabled_actions: ['new']
+            list:
+                title: User list
+                fields: 
+                      - enabled
+                      - name
+                      - surname
+                      - email
+                      - { property: 'imageName', label: 'Avatar',  type: 'image' }
+            form:
+                fields: 
+                      - enabled
+                      - name
+                      - surname
+                      - username
+                      - email
+                      - { property: 'plainPassword', type: 'password', label: 'Password' }
+                      - roles 
+                      - lastLogin
+                      - { property: 'imageFile', label: 'Avatar',  type: 'file' }

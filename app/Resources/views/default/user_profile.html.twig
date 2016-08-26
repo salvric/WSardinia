@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="profilepage">
+	<div class="row-fluid">        
+		<img class="img-circle" src="{{ asset('images/profile/' ~ app.user.imageName) }}">        
+		</br></br>
+        <div class="col-8">
+            <h3>{{app.user.name}}&nbsp;{{app.user.surname}}</h3>
+            <h5><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{app.user.username}}</h5>
+            <h5><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;{{app.user.email}}</h5>
+            <h5><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;{{app.user.city}}, {{app.user.country}}</h5>
+        </div>
+        
+        <div class="col-2">
+            <div class="btn-group">
+                <!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#edit_profile">
+				  Modify
+				</button>
+            </div>
+        </div>
+        <!-- Modal -->
+		<div class="modal fade" id="edit_profile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		        <h4 class="modal-title" id="myModalLabel">Change details</h4>
+		      </div>
+		      <div class="modal-body">
+		        {{ form_start(form) }}
+		        {{ form_errors(form) }}
+		        {{ form_row(form.name) }}
+		      	{{ form_row(form.surname) }}
+		      	{{ form_row(form.email) }}
+		      	{{ form_row(form.city) }}
+		      	{{ form_row(form.country) }}
+		      	{{ form_row(form.country) }}
+		      	{{ form_row(form.imageFile, {'label':'Change profile picture'})}}
+
+		      	<input type="submit" value="Save changes" class="btn btn-primary"></button>
+		        {{ form_end (form) }}
+		      </div>
+		    </div>
+		  </div>
+		</div>
+</div>
+</div>
+{% endblock %}

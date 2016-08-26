@@ -1,0 +1,53 @@
+<!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="{{ path('homepage') }}">
+                    <img class="logo_main" src="{{ asset('img/logo.png') }}">                    
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li>
+                        <a class="page-scroll" href="{{ path('fos_user_security_logout') }}">Log-out</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="page-scroll" href="{{ path('fos_user_security_login') }}">Log-in</a>
+                    </li>                    
+                    <li>
+                        <a class="page-scroll" href="{{ path('fos_user_registration_register') }}">Sign-up</a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a class="page-scroll" href="{{ path('admin') }}">Admin Panel</a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a class="page-scroll" href="{{ path('homepage') }}#about">About</a>
+                    </li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="aligntomenu">
+                        <a class="page-scroll" href="{{ path('profile_page') }}"><div class="img-avatar" style="background-image:url('{{ asset('images/profile/' ~ app.user.imageName) }}')">
+                        </div>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
