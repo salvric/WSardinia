@@ -14,8 +14,8 @@
         <div class="col-2">
             <div class="btn-group">
                 <!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#edit_profile">
-				  Modify
+				<button type="button" class="btn" data-toggle="modal" data-target="#edit_profile">
+					<i class="fa fa-cogs"></i> Modify
 				</button>
             </div>
         </div>
@@ -31,16 +31,43 @@
 		      </div>
 		      <div class="modal-body">
 		        {{ form_start(form) }}
+		        <div class="form-group">
+		        {{ form_label(form.name) }}
 		        {{ form_errors(form) }}
-		        {{ form_row(form.name) }}
-		      	{{ form_row(form.surname) }}
-		      	{{ form_row(form.email) }}
-		      	{{ form_row(form.city) }}
-		      	{{ form_row(form.country) }}
-		      	{{ form_row(form.country) }}
-		      	{{ form_row(form.imageFile, {'label':'Change profile picture'})}}
+		        {{ form_widget(form.name, {'attr':{'class':'form-control'}}) }}
+		    	</div>
+		    	<div class="form-group">
+		    	{{ form_label(form.surname) }}
+		        {{ form_errors(form) }}
+		        {{ form_widget(form.surname, {'attr':{'class':'form-control'}}) }}
+		    	</div>
+		    	<div class="form-group">
+		    	{{ form_label(form.username) }}
+		        {{ form_errors(form) }}
+		        {{ form_widget(form.username, {'attr':{'class':'form-control'}}) }}
+		    	</div>
+		      	<div class="form-group">
+		      	{{ form_label(form.email) }}
+		        {{ form_errors(form) }}
+		        {{ form_widget(form.email, {'attr':{'class':'form-control'}}) }}
+		    	</div>
+		      	<div class="form-group">
+		      	{{ form_label(form.city) }}
+		        {{ form_errors(form) }}
+		        {{ form_widget(form.city, {'attr':{'class':'form-control'}}) }}
+		    	</div>
+		    	<div class="form-group">
+		    	{{ form_label(form.country) }}
+		        {{ form_errors(form) }}
+		        {{ form_widget(form.country, {'attr':{'class':'form-control'}}) }}
+		    	</div>
+		      	<div class="form-control-file">
+		      	{{ form_label(form.imageFile) }}
+		        {{ form_errors(form) }}
+		        {{ form_widget(form.imageFile)}}
+		    	</div>		      	
 
-		      	<input type="submit" value="Save changes" class="btn btn-primary"></button>
+		      	<input type="submit" value="Save changes" class="btn">
 		        {{ form_end (form) }}
 		      </div>
 		    </div>

@@ -14,9 +14,6 @@
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li>
                         <a class="page-scroll" href="{{ path('fos_user_security_logout') }}">Log-out</a>
@@ -38,13 +35,28 @@
                         <a class="page-scroll" href="{{ path('homepage') }}#about">About</a>
                     </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li class="aligntomenu">
-                        <a class="page-scroll" href="{{ path('profile_page') }}"><div class="img-avatar" style="background-image:url('{{ asset('images/profile/' ~ app.user.imageName) }}')">
-                        </div>
+                    <li>
+                        <div class="dropdown">
+                        <a class="page-scroll" data-toggle="dropdown">
+                            {% if app.user.imageName is null %}
+                            <div class="img-avatar" style="background-image:url('{{ asset('images/profile/default.png') }}')">
+                            {% else %}
+                            <div class="img-avatar" style="background-image:url('{{ asset('images/profile/' ~ app.user.imageName) }}')">
+                            </div>
+                            {% endif %}
+                                
                         </a>
+                            
+                            <b class="caret"></b>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('profile_page') }}">Profile</a></li>
+                                <li><a href="#">Another action</a></li>
+                            </ul>     
+                        
+                        </div>
                     </li>
-                    {% endif %}
-                    
+                                    
+                    {% endif %}                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

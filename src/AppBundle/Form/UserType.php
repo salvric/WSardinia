@@ -18,11 +18,13 @@ class UserType extends AbstractType{
 
 		$builder->add('name', TextType::Class)
                 ->add('surname', TextType::Class)
+                ->add('username', TextType::Class)
                 ->add('email', TextType::Class)
                 ->add('city', TextType::Class)
                 ->add('country', CountryType::Class)
                 ->add('creationTime', HiddenType::Class, array('data'=>'ciao'))
-                ->add('imageFile', FileType::Class, array('required'=>'false', 'empty_data' => null));
+                ->add('imageFile', FileType::Class, array('required'=>false))
+                ->add('imageName', HiddenType::Class, array('empty_data'=>null));
 	}
 
 	public function setDefaultOptions(OptionsResolverInterface $resolver){

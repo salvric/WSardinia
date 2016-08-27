@@ -13,8 +13,10 @@ easy_admin:
                 title: User list
                 fields: 
                       - enabled
+                      - username
                       - name
                       - surname
+                      - roles
                       - email
                       - { property: 'imageName', label: 'Avatar',  type: 'image' }
             form:
@@ -24,6 +26,8 @@ easy_admin:
                       - surname
                       - username
                       - email
+                      - city
+                      - country
                       - { property: 'plainPassword', type: 'password', label: 'Password' }
                       - roles 
                       - lastLogin

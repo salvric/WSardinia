@@ -69,6 +69,8 @@ class User extends BaseUser
     */
     private $creationTime;
     /**
+     * @Assert\Image(
+     *   maxWidth = 800,maxHeight=800, maxSize = "1024k")     
      * 
      * @Vich\UploadableField(mapping="profile_image", fileNameProperty="imageName", nullable=true)
      * 
