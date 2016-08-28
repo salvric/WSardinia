@@ -1,0 +1,167 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Location;
+
+/**
+ * Photo
+ *
+ * @ORM\Table(name="photo")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoRepository")
+ */
+class Photo
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location")
+     *
+     */
+    private $id_location;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imageName", type="string", length=255)
+     */
+    private $imageName;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="like_count", type="integer", nullable=true)
+     */
+    private $likeCount;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_post", type="timestamp")
+     */
+    private $datePost;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="status", type="boolean")
+     */
+    private $status;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set imageName
+     *
+     * @param string $imageName
+     *
+     * @return Photo
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get imageName
+     *
+     * @return string
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Set likeCount
+     *
+     * @param integer $likeCount
+     *
+     * @return Photo
+     */
+    public function setLikeCount($likeCount)
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    /**
+     * Get likeCount
+     *
+     * @return int
+     */
+    public function getLikeCount()
+    {
+        return $this->likeCount;
+    }
+
+    /**
+     * Set datePost
+     *
+     * @param \DateTime $datePost
+     *
+     * @return Photo
+     */
+    public function setDatePost($datePost)
+    {
+        $this->datePost = $datePost;
+
+        return $this;
+    }
+
+    /**
+     * Get datePost
+     *
+     * @return \DateTime
+     */
+    public function getDatePost()
+    {
+        return $this->datePost;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     *
+     * @return Photo
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return bool
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+}
+

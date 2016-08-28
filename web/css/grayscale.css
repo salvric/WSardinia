@@ -237,7 +237,10 @@ select{
   }
 }
 .content-section {
-  padding-top: 100px;
+  padding-top: 80px;
+}
+.titleform{
+  text-align: center;
 }
 .profilepage{
   padding-top: 100px;

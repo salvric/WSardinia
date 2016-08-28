@@ -1,6 +1,6 @@
 # Easy Admin Bundle
 easy_admin:
-    site_name: 'WS Admin panel'
+    site_name: 'Admin panel'
     design:
         color_scheme: 'light'
         brand_color: '#000000'
@@ -32,3 +32,23 @@ easy_admin:
                       - roles 
                       - lastLogin
                       - { property: 'imageFile', label: 'Avatar',  type: 'file' }
+        Location:
+            class: AppBundle\Entity\Location
+            image_base_path: '/images/profile'
+            disabled_actions: 
+            list:
+                title: Location list
+                fields: 
+                      - { property: 'status', label: 'Enabled'}
+                      - name
+                      - category
+                      - user
+                      - { property: 'dateIns', label: 'Date post',  type: 'date' }
+            form:
+                fields: 
+                      - { property: 'status', label: 'Enabled'}
+                      - name
+                      - category
+                      - { property: description, type: 'textarea'}
+                      - user
+                      - { property: 'dateIns', label: 'Date post',  type: 'datetime' }

@@ -68,6 +68,7 @@ class User extends BaseUser
     * @ORM\Column(name="creationTime", type="datetime")
     */
     private $creationTime;
+    
     /**
      * @Assert\Image(
      *   maxWidth = 800,maxHeight=800, maxSize = "1024k")     
