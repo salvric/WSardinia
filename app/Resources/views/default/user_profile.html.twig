@@ -1,24 +1,38 @@
 {% extends 'base.html.twig' %}
 {% block content %}
 <div class="profilepage">
-	<div class="row-fluid">        
-		<img class="img-circle" src="{{ asset('images/profile/' ~ app.user.imageName) }}">        
+	<div class="row-fluid"> 
+		<div class="col-md-4">
+		<div class="contactinfo">     
+			<img class="img-circle" src="{{ asset('images/profile/' ~ app.user.imageName) }}">        
 		</br></br>
-        <div class="col-8">
+        	
             <h3>{{app.user.name}}&nbsp;{{app.user.surname}}</h3>
             <h5><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{app.user.username}}</h5>
             <h5><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;{{app.user.email}}</h5>
             <h5><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;{{app.user.city}}, {{app.user.country}}</h5>
-        </div>
-        
-        <div class="col-2">
-            <div class="btn-group">
+        	<div class="btn-group">
                 <!-- Button trigger modal -->
 				<button type="button" class="btn" data-toggle="modal" data-target="#edit_profile">
 					<i class="fa fa-cogs"></i> Modify
 				</button>
             </div>
         </div>
+        </div>
+        <div class="col-md-8">
+        	
+        	<h4>Latest activities</h4>
+        	<div class="activities">
+        	{% if locations is empty %}
+        		<p>You have no recent activities</p>
+        	{% else %}
+	        	{% for location in locations %}
+	        		<p>you added "{{ location.name }}" on {{ location.dateIns | date("d/m/Y") }} </p>		
+	            {% endfor %}
+        	{% endif %}
+        	</div>
+        </div>
+       
         <!-- Modal -->
 		<div class="modal fade" id="edit_profile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
@@ -64,9 +78,9 @@
 		      	<div class="form-control-file">
 		      	{{ form_label(form.imageFile) }}
 		        {{ form_errors(form) }}
-		        {{ form_widget(form.imageFile)}}
+		        {{ form_widget(form.imageFile,{'attr':{'class':'form-control'}})}}
 		    	</div>		      	
-
+		    	<br>
 		      	<input type="submit" value="Save changes" class="btn">
 		        {{ form_end (form) }}
 		      </div>

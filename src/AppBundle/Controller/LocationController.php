@@ -16,7 +16,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 class LocationController extends Controller
 {
     /**
-     * @Route("/add_location", name= "add_location"  )
+     * @Route("/profile/add_location", name= "add_location"  )
      */
     public function addLocationAction(Request $request)
     {
@@ -61,6 +61,16 @@ class LocationController extends Controller
     {
 
     }
+    /**
+    * @Route("/location-{id}", name="location")
+    */
+    public function locationAction($id)
+    {
+
+        $location = $this->getDoctrine()->getRepository('AppBundle:Location')->findBy(array('id'=>$id));
+        return $this->render('default/location.html.twig', array('location'=>$location));
+    }
+
 
 
 }

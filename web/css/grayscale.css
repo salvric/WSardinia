@@ -3,8 +3,8 @@ body {
   width: 100%;
   height: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: white;
-  background-color: black;
+  color: black;
+  background-color: white;
 }
 html {
   width: 100%;
@@ -16,7 +16,7 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 35px;
+  margin: 0 0 5px;
   text-transform: uppercase;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
@@ -24,15 +24,15 @@ h6 {
 }
 p {
   margin: 0 0 25px;
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.2;
 }
 body::-moz-selection { background: yellow; }
 body::selection { background: yellow; }
 @media (min-width: 768px) {
   p {
     margin: 0 0 35px;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.6;
   }
 }
@@ -79,7 +79,7 @@ a:focus {
   outline: none;
 }
 .navbar-custom a {
-  color: white;
+  color: #000000;
 }
 .navbar-custom .nav li a {
   -webkit-transition: background 0.3s ease-in-out;
@@ -243,11 +243,14 @@ select{
   text-align: center;
 }
 .profilepage{
-  padding-top: 100px;
+  padding: 150px;
   text-align: center;
 }
+.activities{
+  text-align: left;
+}
 .profilepage img{
-  width: 10%;
+  width: 20%;
 }
 .modal-content {
   color: #000000;
@@ -260,7 +263,9 @@ select{
   text-align: left;
   margin: 0 auto;
 }
-
+.contactinfo{
+  text-align: left;
+}
 .review-section {
   width: 100%;
   padding: 50px 0;
@@ -349,12 +354,12 @@ footer p {
 ::-moz-selection {
   text-shadow: none;
   background: #fcfcfc;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.8);
 }
 ::selection {
   text-shadow: none;
   background: #fcfcfc;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.8);
 }
 img::selection {
   background: transparent;
@@ -363,5 +368,20 @@ img::-moz-selection {
   background: transparent;
 }
 body {
-  webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+  webkit-tap-highlight-color: rgba(255, 255, 255, 0.7);
 }
+/* Location page */
+.loc_thumb{
+  width: 10%;
+  display: inline-block;
+  vertical-align: top;
+}
+.loc_title{
+  display: inline-block;
+}
+.loc_card {
+  background: rgba(189,189,189,1);
+  margin-top: 150px;
+  padding: 20px;
+}
+

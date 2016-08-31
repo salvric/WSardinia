@@ -19,21 +19,11 @@ class WSardiniaController extends Controller
     public function indexAction(Request $request)
     {
     // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-            ]);
+        return $this->render('default/index.html.twig');
     }
+    
     /**
-    * @Route("/profile_page", name="profile_page")
-    */
-    public function profileAction()
-    {
-
-        return $this->render('default/user_profile.html.twig');
-    }
-
-    /**
-     * @Route("/profile_page", name= "profile_page"  )
+     * @Route("/profile/dashboard", name= "dashboard"  )
      */
     public function edit_profileAction(Request $request)
     {
@@ -76,8 +66,10 @@ class WSardiniaController extends Controller
             return $response;
         }
 
+        
+        $locations = $this->getDoctrine()->getRepository('AppBundle:Location')->findBy(array('user'=>$user));
 
-        return $this->render('default/user_profile.html.twig',array('form'=>$form->createView()));
+        return $this->render('default/user_profile.html.twig',array('form'=>$form->createView(),'locations'=>$locations));
     }
 
 }

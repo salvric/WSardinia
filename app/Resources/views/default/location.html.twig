@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+<div class="container loc_card">
+	<div class="row-fluid"> 
+		<div class="col-md-12">
+    		<div class="loc_details">
+                <div class="loc_thumb">
+                    <img class="img-circle" src="http://placehold.it/80x80">
+                </div>
+                <div class="loc_title" >
+                    {% for locations in location %}
+                    <h2>{{ locations.name }}</h2>
+                
+                    <p class="">{{ locations.category }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="col-md-4">
+            <br>
+        	<h5>Description :</h5>
+            <p>
+                {{ locations.description }}
+            </p>
+            <h5>Activities :</h5>
+            <p>
+                There aren't any entries at the moment
+            </p>
+            <h5>Posted by 
+                {{locations.user.username}}
+                    on 
+                {{locations.dateIns | date('d M Y')}}
+            </h5>
+
+        	
+        </div>
+        <div class="col-md-8">
+            <div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48494.33872198557!2d8.286814557422426!3d40.56597008697055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12dcf1ef75c50c05%3A0x2b9298429f4a8b50!2s07041+Bosa+SS!5e0!3m2!1sit!2sit!4v1472645306456" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
