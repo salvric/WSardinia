@@ -3,7 +3,7 @@ easy_admin:
     site_name: 'Admin panel'
     design:
         color_scheme: 'light'
-        brand_color: '#000000'
+        brand_color: '#0073AA'
     entities:
         User:
             class: AppBundle\Entity\User

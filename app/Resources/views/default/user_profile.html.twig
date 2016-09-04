@@ -3,23 +3,33 @@
 <div class="profilepage">
 	<div class="row-fluid"> 
 		<div class="col-md-4">
-		<div class="contactinfo">     
-			<img class="img-circle" src="{{ asset('images/profile/' ~ app.user.imageName) }}">        
-		</br></br>
+		<div class="contactinfo card">
+		{% if app.user.imageName is null %}
+            <div class="img-circle img-profile" style="background-image:url('{{ asset('images/profile/default.png') }}')">
+            </div>
+            {% else %}
+            <img class="img-circle img-profile" src="{{ asset('images/profile/' ~ app.user.imageName) }}">  
+            
+         {% endif %}      
+			</br></br>
         	
             <h3>{{app.user.name}}&nbsp;{{app.user.surname}}</h3>
+            </br>
             <h5><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{app.user.username}}</h5>
+            </br>
             <h5><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;{{app.user.email}}</h5>
+            </br>
             <h5><i class="fa fa-globe" aria-hidden="true"></i>&nbsp;{{app.user.city}}, {{app.user.country}}</h5>
+            </br>
         	<div class="btn-group">
                 <!-- Button trigger modal -->
 				<button type="button" class="btn" data-toggle="modal" data-target="#edit_profile">
 					<i class="fa fa-cogs"></i> Modify
 				</button>
-            </div>
+            </div>        
+    </div>
         </div>
-        </div>
-        <div class="col-md-8">
+        <div class="col-md-8 card">
         	
         	<h4>Latest activities</h4>
         	<div class="activities">
@@ -30,6 +40,7 @@
 	        		<p>you added "{{ location.name }}" on {{ location.dateIns | date("d/m/Y") }} </p>		
 	            {% endfor %}
         	{% endif %}
+
         	</div>
         </div>
        
@@ -88,6 +99,7 @@
 		    </div>
 		  </div>
 		</div>
+
 </div>
 </div>
 {% endblock %}

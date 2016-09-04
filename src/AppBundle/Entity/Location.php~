@@ -57,6 +57,22 @@ class Location
     private $description;
 
     /**
+     * 
+     *
+     * @ORM\Column(name="latitude", type="decimal", precision=10, scale=8, nullable=true)
+     * 
+     */
+    private $lat;
+
+    /**
+     * 
+     *
+     * @ORM\Column(name="longitude", type="decimal", precision=11, scale=8, nullable=true)
+     * 
+     */
+    private $lng;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="status", type="boolean")
@@ -199,5 +215,29 @@ class Location
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Location
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

@@ -24,7 +24,7 @@ framework:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
+    trusted_proxies: ['127.0.0.1']
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
@@ -37,7 +37,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
+    form_themes: 
+        - bootstrap_3_layout.html.twig
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -59,6 +60,12 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -99,3 +106,22 @@ vich_uploader:
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
+#geolocation
+services:
+    guzzle_http_adapter:
+        class:                 Ivory\HttpAdapter\Guzzle6HttpAdapter
+
+bazinga_geocoder:
+    fake_ip:
+        enabled:              false
+        ip:                   null
+        priority:             0
+    adapter:                  guzzle_http_adapter
+    providers:
+        openstreetmap:
+            locale:               null
+        google_maps:
+            locale:               null
+            region:               null
+            use_ssl:              true
+            api_key:              AIzaSyCO5MTZ8XXrxMsCyz0YSGzvqBikF3wPimk

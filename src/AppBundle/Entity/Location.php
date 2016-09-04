@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * Location
@@ -21,21 +23,29 @@ class Location
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
-    /**
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     *
-     */
-    private $user;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    public $name;
+    
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="location")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="location")
+     * @ORM\OrderBy({"dateIns"="DESC"})
+     */
+    private $review;
 
     /**
      * @var string
@@ -57,6 +67,22 @@ class Location
     private $description;
 
     /**
+     * 
+     *
+     * @ORM\Column(name="latitude", type="decimal", precision=10, scale=8, nullable=true)
+     * 
+     */
+    private $lat;
+
+    /**
+     * 
+     *
+     * @ORM\Column(name="longitude", type="decimal",precision=14, scale=12, nullable=true)
+     * 
+     */
+    private $lng;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="status", type="boolean")
@@ -69,7 +95,11 @@ class Location
      * @ORM\Column(name="date_ins", type="datetime", nullable=true)
      */
     private $dateIns;
-
+    
+    public function __construct()
+    {
+        $this->review = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -223,5 +253,63 @@ class Location
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param string $lat
+     *
+     * @return Location
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * Set lng
+     *
+     * @param string $lng
+     *
+     * @return Location
+     */
+    public function setLng($lng)
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    /**
+     * Get lng
+     *
+     * @return string
+     */
+    public function getLng()
+    {
+        return $this->lng;
+    }
+
+    /**
+     * Get Review
+     *
+     * @return ArrayCollection|Review[]
+     */
+    public function getReview()
+    {
+        return $this->review;
     }
 }

@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -68,6 +69,20 @@ class User extends BaseUser
     * @ORM\Column(name="creationTime", type="datetime")
     */
     private $creationTime;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Location", mappedBy="user")
+     *
+     */
+    private $location;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="user")
+     *
+     */
+    private $review;
     
     /**
      * @Assert\Image(
@@ -92,6 +107,12 @@ class User extends BaseUser
      * @var \DateTime
      */
     private $updatedAt;
+    
+    public function __construct()
+    {
+        $this->location = new ArrayCollection();
+        $this->review = new ArrayCollection();
+    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -145,11 +166,6 @@ class User extends BaseUser
         return $this->imageName;
     }
 
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Set name
@@ -294,5 +310,25 @@ class User extends BaseUser
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Gets the value of location.
+     *
+     * @return ArrayCollection|Location[]
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Gets the value of review.
+     *
+     * @return ArrayCollection|Review[]
+     */
+    public function getReview()
+    {
+        return $this->review;
     }
 }
