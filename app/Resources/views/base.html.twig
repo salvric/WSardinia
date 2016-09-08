@@ -14,7 +14,9 @@
         <!-- Custom Fonts -->
         <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Prata" rel="stylesheet">
 
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
         <!-- Theme CSS -->
         <link href="{{ asset('css/grayscale.css') }}" rel="stylesheet">
 
@@ -31,34 +33,44 @@
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
         {% include 'nav.html.twig' %}
         <div class="main">
-        {% block content %} {% endblock %}
+            {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success text-center">
+                {% for msg in app.session.flashBag.get('success') %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% block content %}          
+            {% endblock %}        
+        </div>
         {% block footer %}
-            <footer>
-                <div class="main-footer">
-                    <div class="col-md-4">
-                        <img class="img-footer" style="width:20%" src="{{ asset('/img/logofooter.png') }}">
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Site Map</h5>
+            <footer class="footer-distributed">
+                <div class="footer-right">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="footer-left">
+                    <p class="footer-links">
+                        <a href="#">Home</a>
+                        ·
                         <a href="#">Discover</a>
+                        ·
                         <a href="#">Learn</a>
+                        ·
+                        <a href="#">About</a>
+                        ·
                         <a href="#">Contact</a>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Discover</h5>
-                        <a href="#">Where</a>
-                        <a href="#">What</a>
-                        <a href="#">When</a>
-                    </div>
-
+                    </p>
+                    <p>With <i style="color:red" class="fa fa-heart"></i> from Wanderlust Sardinia</p>
                 </div>
             </footer>
         {% endblock %}
-        </div>
         {% block javascripts %}
         
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEdevajP8g5iulqWBPM3UXUTtrzjJ8rDs&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEdevajP8g5iulqWBPM3UXUTtrzjJ8rDs&callback=initMap&libraries=places">
         </script>
         <!-- jQuery -->
         <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
@@ -71,7 +83,7 @@
 
         <!-- Theme JavaScript -->
         <script src="{{ asset('js/grayscale.min.js') }}"></script>
-        
+        <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>
         {% endblock %}
     </body>
 </html>

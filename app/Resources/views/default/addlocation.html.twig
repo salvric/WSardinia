@@ -4,13 +4,6 @@
 <div class="content-section">
 	<h1 class="titleform">Add a new location </h1>
 	<div class="formlayout">
-		{% for flashMessage in app.session.flashbag.get('noticeLocation') %}
-
-                  <div class="alert alert-success">
-                      {{ flashMessage }}
-                  </div>
-
-         {% endfor %}
 		{{ form_start(formAddLocation) }}
 		{{ form_label(formAddLocation.name) }}
 		{{ form_errors(formAddLocation.name) }}

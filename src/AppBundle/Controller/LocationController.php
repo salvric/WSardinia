@@ -39,15 +39,33 @@ class LocationController extends Controller
             // set the user id field
             $location->setUser($user);
 
+            //get coordinates for the current location
+            $point = $location->getName();
+            $result = $this->container
+                ->get('bazinga_geocoder.geocoder')
+                ->using('google_maps')
+                ->geocode($point);
+
+            if (!$result) {
+                throw $this->createNotFoundException('Location not found, try again !');
+            }
+            $address = $result->first();
+            $localita = $address->getLocality();
+            
+            $location->setLat($address->getLatitude());
+            $location->setLng($address->getLongitude());
             // save the user and form 
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add(
-                                            'noticeLocation',
-                                            'Location added succefully!');
-            //return $this->redirectToRoute('dashboard');
+            $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Location added succefully!');
+
+            $lastId = $location->getId();
+            $url = $this->generateUrl('location', array('id'=>$lastId));
+            return $this->redirect($url);
 
         }
         
@@ -68,18 +86,18 @@ class LocationController extends Controller
         }
         // get all the review for the current location
         $reviews = $location->getReview();
-
-        //get coordinates for the current location
-        $point = $location->getName();
-        $result = $this->container
-            ->get('bazinga_geocoder.geocoder')
-            ->using('google_maps')
-            ->geocode($point);
         
-        $address = $result->first();
-        $localita = $address->getLocality();
-        $lat = $address->getLatitude();
-        $lng = $address->getLongitude();
+        // get the rating average
+        $rating[] = null;
+        if ($reviews == null){
+            $avRating = 0;            
+        }
+        else{            
+            foreach ($reviews as $review){
+                $rating[] = $review->getRating();
+            }
+            $avRating = ceil(array_sum($rating)/count($rating));
+        }
 
         $review = new Review();
         $formAddReview = $this->createForm(ReviewType::class, $review);
@@ -97,18 +115,28 @@ class LocationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($review);
             $em->flush();
+            $lastId = $location->getId();
+            $url = $this->generateUrl('location', array('id'=>$lastId));
+            return $this->redirect($url);
         }
-        return $this->render('default/location.html.twig', array('location'=>$location, 'lat'=>$lat, 'lng'=>$lng, 'reviews'=>$reviews, 'formAddReview'=>$formAddReview->createView()));
+        return $this->render('default/location.html.twig', array('location'=>$location, 'reviews'=>$reviews,'rating'=>$avRating, 'formAddReview'=>$formAddReview->createView()));
+    }
+
+
+    /**
+    * @Route("/", name="homepage")
+    */
+    public function showLatestLocation()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locations = $em->getRepository('AppBundle:Location')->findLatest(4);
+        return $this->render('default/index.html.twig', array('lastLocations'=>$locations));
     }
 
     /**
-    * @Route("/location/{name}/addreview", name="addreview")
-    */
-    public function addReviewAction()
-    {
-        
-        return $this->render('default/location.html.twig');
-    }
+     * @Route("/location/{id}/review")
+     * @Method("GET")
+     */
     
 
 }

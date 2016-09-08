@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class LocationRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findLatest($limit) 
+	{
+    	return $this->createQueryBuilder('e')
+    				->orderBy('e.dateIns', 'DESC')
+			        ->setMaxResults($limit)
+			        ->getQuery() 
+			        ->getResult();
+	}
 }

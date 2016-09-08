@@ -24,7 +24,7 @@ class Review
     /**
      * 
      * @ORM\ManyToOne(targetEntity="Location", inversedBy="review")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $location;
 

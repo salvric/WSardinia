@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use blackknight467\StarRatingBundle\Form\RatingType;
 
 class ReviewType extends AbstractType
 {
@@ -26,12 +27,7 @@ class ReviewType extends AbstractType
     {
         $builder
             ->add('comment')
-            ->add('rating',ChoiceType::Class, array( 'choices'=> array(
-                                                '1'=>'1',
-                                                '2'=>'2',
-                                                '3'=>'3',
-                                                '4'=>'4',
-                                                '5'=>'5')));
+            ->add('rating', RatingType::class, ['label'=>'Rating']);
     }
     
     /**

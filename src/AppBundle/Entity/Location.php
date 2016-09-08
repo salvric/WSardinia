@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Location;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -13,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="location")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\LocationRepository")
+ * 
  */
 class Location
 {
@@ -43,6 +45,7 @@ class Location
     /**
      *
      * @ORM\OneToMany(targetEntity="Review", mappedBy="location")
+     * 
      * @ORM\OrderBy({"dateIns"="DESC"})
      */
     private $review;
