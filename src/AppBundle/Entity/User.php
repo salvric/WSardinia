@@ -83,6 +83,13 @@ class User extends BaseUser
      *
      */
     private $review;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="user")
+     *
+     */
+    private $photo;
     
     /**
      * @Assert\Image(
@@ -110,8 +117,10 @@ class User extends BaseUser
     
     public function __construct()
     {
+        parent::__construct();
         $this->location = new ArrayCollection();
         $this->review = new ArrayCollection();
+        $this->photo = new ArrayCollection();
     }
 
     /**
@@ -330,5 +339,16 @@ class User extends BaseUser
     public function getReview()
     {
         return $this->review;
+    }
+
+
+    /**
+     * Gets the value of photo.
+     *
+     * @return ArrayCollection|Photo[]
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }

@@ -36,7 +36,8 @@
         "doctrine/doctrine-migrations-bundle": "^1.0",
         "blackknight467/star-rating-bundle": "2.*",
         "league/oauth2-client": "~1.0@dev",
-        "league/oauth2-facebook": "^1.4"
+        "league/oauth2-facebook": "^1.4",
+        "jms/serializer-bundle": "^1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

@@ -18,4 +18,11 @@ class LocationRepository extends \Doctrine\ORM\EntityRepository
 			        ->getQuery() 
 			        ->getResult();
 	}
+	public function findLatLng()
+	{
+		return $this->createQueryBuilder('p')
+					  ->select('p.id, p.name, p.lat, p.lng')
+					  ->getQuery()
+					  ->getResult();
+	}
 }

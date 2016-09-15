@@ -26,13 +26,13 @@ class LocationController extends Controller
         //build the form
         $location = new Location();
 
-        $formAdd = $this->createForm( LocationType::class, $location );
-        
+        $formAdd = $this->createForm( LocationType::class, $location);        
         
         //handle the submit
         $formAdd->handleRequest($request);
-        if ($formAdd->isSubmitted() && $formAdd->isValid()) {
+        if ($formAdd->isSubmitted() && $formAdd->isValid()) { 
             
+
             // get the user id
             $user = $this->getUser();
 
@@ -53,11 +53,15 @@ class LocationController extends Controller
             $localita = $address->getLocality();
             
             $location->setLat($address->getLatitude());
-            $location->setLng($address->getLongitude());
+            $location->setLng($address->getLongitude());            
+
             // save the user and form 
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
+
+            
+            $lastId=$location->getId();
 
             $request->getSession()
                     ->getFlashBag()
@@ -132,11 +136,14 @@ class LocationController extends Controller
         $locations = $em->getRepository('AppBundle:Location')->findLatest(4);
         return $this->render('default/index.html.twig', array('lastLocations'=>$locations));
     }
-
-    /**
-     * @Route("/location/{id}/review")
-     * @Method("GET")
-     */
     
+    /**
+    * @Route("/location/{id}/add_photo", name="addphoto")
+    */
+    public function addPhoto($id, Request $request)
+    {
+
+    }
+
 
 }

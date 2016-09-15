@@ -13,6 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Table(name="photo")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoRepository")
+ * 
  */
 class Photo
 {
@@ -27,10 +28,18 @@ class Photo
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Location")
+     * @ORM\ManyToOne(targetEntity="Location", inversedBy="photo")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
      */
-    private $id_location;
+    private $location;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="photo")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * @Assert\Image(
@@ -45,7 +54,7 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="imageName", type="string", length=255)
+     * @ORM\Column(name="imageName", type="string", length=255, nullable=true)
      */
     private $imageName;
 
@@ -54,7 +63,7 @@ class Photo
      *
      * @ORM\Column(name="like_count", type="integer", nullable=true)
      */
-    private $likeCount;
+    private $likeCount = 0;
 
     /**
      * @var \DateTime
@@ -166,7 +175,7 @@ class Photo
      */
     public function setDatePost($datePost)
     {
-        $this->datePost = $datePost;
+        $this->datePost = new \DateTime('now');
 
         return $this;
     }
@@ -206,26 +215,52 @@ class Photo
     }
 
     /**
-     * Set idLocation
+     * Set location
      *
-     * @param \AppBundle\Entity\Location $idLocation
+     * @param \AppBundle\Entity\Location $location
      *
      * @return Photo
      */
-    public function setIdLocation(\AppBundle\Entity\Location $idLocation = null)
+    public function setLocation(Location $location)
     {
-        $this->id_location = $idLocation;
+        $this->location = $location;
 
         return $this;
     }
 
     /**
-     * Get idLocation
+     * Get location
      *
      * @return \AppBundle\Entity\Location
      */
-    public function getIdLocation()
+    public function getLocation()
     {
-        return $this->id_location;
+        return $this->location;
+    }
+
+
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Photo
+     */
+    public function setUser(\AppBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

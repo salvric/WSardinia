@@ -1,22 +1,27 @@
 {% extends 'base.html.twig' %}
 {% form_theme formAddLocation 'form/bootstrap3.html.twig' %}
 {% block content %}
-<div class="content-section">
-	<h1 class="titleform">Add a new location </h1>
-	<div class="formlayout">
-		{{ form_start(formAddLocation) }}
-		{{ form_label(formAddLocation.name) }}
-		{{ form_errors(formAddLocation.name) }}
-		{{ form_widget (formAddLocation.name)}}
-		{{ form_label(formAddLocation.description) }}
-		{{ form_errors(formAddLocation.description) }}
-		{{ form_widget (formAddLocation.description) }}
-		{{ form_label(formAddLocation.category) }}
-		{{ form_errors(formAddLocation.category) }}
-		{{ form_widget (formAddLocation.category) }}
-		<br>
-			<input type="submit" value="Save changes" class="btn">
-		{{ form_end(formAddLocation) }}
+<div class="main">
+	<div class="content-section">
+		<h1 class="titleform">Add a new location </h1>
+		<div class="formlayout">
+			{{ form_start(formAddLocation) }}
+			{{ form_label(formAddLocation.name) }}
+			{{ form_errors(formAddLocation.name) }}
+			{{ form_widget (formAddLocation.name)}}
+			{{ form_label(formAddLocation.description) }}
+			{{ form_errors(formAddLocation.description) }}
+			{{ form_widget (formAddLocation.description) }}
+			{{ form_label(formAddLocation.category) }}
+			{{ form_errors(formAddLocation.category) }}
+			{{ form_widget (formAddLocation.category) }}
+			{{ form_label(formAddLocation.imageFile) }}
+			{{ form_errors(formAddLocation.imageFile) }}
+			{{ form_widget (formAddLocation.imageFile) }}
+			<br>
+				<input type="submit" value="Save changes" class="btn">
+			{{ form_end(formAddLocation) }}
+		</div>
 	</div>
 </div>
 {% endblock %}

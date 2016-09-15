@@ -29,10 +29,13 @@
 
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEdevajP8g5iulqWBPM3UXUTtrzjJ8rDs&callback=initMap&libraries=places">
+        </script>
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
         {% include 'nav.html.twig' %}
-        <div class="main">
+        
             {% if app.session.flashBag.has('success') %}
             <div class="alert alert-success text-center">
                 {% for msg in app.session.flashBag.get('success') %}
@@ -42,7 +45,6 @@
             {% endif %}
             {% block content %}          
             {% endblock %}        
-        </div>
         {% block footer %}
             <footer class="footer-distributed">
                 <div class="footer-right">
@@ -69,9 +71,6 @@
         {% endblock %}
         {% block javascripts %}
         
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEdevajP8g5iulqWBPM3UXUTtrzjJ8rDs&callback=initMap&libraries=places">
-        </script>
         <!-- jQuery -->
         <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
 

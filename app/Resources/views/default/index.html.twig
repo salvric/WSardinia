@@ -37,7 +37,7 @@
                     {% for lastLocation in lastLocations %}
                    <a href="{{ path('location', {'id': lastLocation.id }) }}">
                     <div class="col-md-3 nopadding">
-                        <div class="location-box" style="background-image:url('{{ asset('images/location/lisbonpanorama.jpg') }}')">
+                        <div class="location-box" style="background-image:url('{{ asset('images/location/' ~ lastLocation.imageName) }}')">
                              <div class="overlay-box">
                                  <h3 class="title-box">{{lastLocation.name}}</h3>
                              </div>                             

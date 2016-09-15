@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class WSardiniaController extends Controller
 {
@@ -64,5 +68,16 @@ class WSardiniaController extends Controller
 
         return $this->render('default/user_profile.html.twig',array('form'=>$form->createView(),'locations'=>$locations));
     }
+    /**
+     * @Route("/discover", name= "discover"  )
+     */
+    public function showMarkersAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locations = $em->getRepository('AppBundle:Location')->findLatLng(); 
+        
+        $json = json_encode($locations);
+        return $this->render('default/discover.html.twig', array('locations'=>$json));
 
+    }
 }
