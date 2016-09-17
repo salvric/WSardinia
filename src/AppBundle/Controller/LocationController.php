@@ -77,7 +77,8 @@ class LocationController extends Controller
     }
 
     /**
-    * @Route("/location/{id}", name="location")
+    * @Route("/location/{id}", name="location", defaults = { "id" = 1 },options = { "expose" = true }, name = "location")
+    *     
     */
     public function locationAction($id, Request $request)
     {

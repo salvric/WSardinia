@@ -23,7 +23,9 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new blackknight467\StarRatingBundle\StarRatingBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle()
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Cocur\HumanDate\Bridge\Symfony\CocurHumanDateBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -49,7 +49,7 @@ class WSardiniaController extends Controller
 
                 //$url = $this->generateUrl('fos_user_profile_show');
                
-                $url = $this->generateUrl('profile_page');
+                $url = $this->generateUrl('dashboard');
                 $response = new RedirectResponse($url);
 
             }
@@ -64,9 +64,9 @@ class WSardiniaController extends Controller
         }
 
         
-        $locations = $this->getDoctrine()->getRepository('AppBundle:Location')->findBy(array('user'=>$user));
-
-        return $this->render('default/user_profile.html.twig',array('form'=>$form->createView(),'locations'=>$locations));
+        $locations = $user->getLocation();
+        $reviews = $user->getReview();
+        return $this->render('default/user_profile.html.twig',array('form'=>$form->createView(),'locations'=>$locations, 'reviews'=>$reviews));
     }
     /**
      * @Route("/discover", name= "discover"  )
@@ -77,6 +77,7 @@ class WSardiniaController extends Controller
         $locations = $em->getRepository('AppBundle:Location')->findLatLng(); 
         
         $json = json_encode($locations);
+        
         return $this->render('default/discover.html.twig', array('locations'=>$json));
 
     }

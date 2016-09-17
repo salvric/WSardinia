@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -49,11 +50,19 @@ class User extends BaseUser
      * )
      */
     private $surname;
+
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     *
+     */
+    private $aboutMe;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      */
     private $city;
+
     /**
      * @ORM\Column(type="string", length=255)
      *
@@ -66,27 +75,59 @@ class User extends BaseUser
     * @ORM\Column(name="creationTime", type="datetime")
     */
     private $creationTime;
+
     /**
+     *
+     * @ORM\OneToMany(targetEntity="Location", mappedBy="user")
+     *
+     */
+    private $location;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="user")
+     *
+     */
+    private $review;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="user")
+     *
+     */
+    private $photo;
+    
+    /**
+     * @Assert\Image(
+     *   maxWidth = 800,maxHeight=800, maxSize = "1024k")     
      * 
-     * @Vich\UploadableField(mapping="profile_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="profile_image", fileNameProperty="imageName", nullable=true)
      * 
      * @var File
      */
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @var string
      */
     private $imageName;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */
     private $updatedAt;
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->location = new ArrayCollection();
+        $this->review = new ArrayCollection();
+        $this->photo = new ArrayCollection();
+    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -140,11 +181,6 @@ class User extends BaseUser
         return $this->imageName;
     }
 
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Set name
@@ -265,5 +301,60 @@ class User extends BaseUser
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Gets the value of location.
+     *
+     * @return ArrayCollection|Location[]
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Gets the value of review.
+     *
+     * @return ArrayCollection|Review[]
+     */
+    public function getReview()
+    {
+        return $this->review;
+    }
+
+
+    /**
+     * Gets the value of photo.
+     *
+     * @return ArrayCollection|Photo[]
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }

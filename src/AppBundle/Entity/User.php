@@ -52,6 +52,12 @@ class User extends BaseUser
     private $surname;
 
     /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     *
+     */
+    private $aboutMe;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      */
@@ -73,14 +79,14 @@ class User extends BaseUser
     /**
      *
      * @ORM\OneToMany(targetEntity="Location", mappedBy="user")
-     *
+     * @ORM\OrderBy({"dateIns"="DESC"})
      */
     private $location;
 
     /**
      *
      * @ORM\OneToMany(targetEntity="Review", mappedBy="user")
-     *
+     * @ORM\OrderBy({"dateIns"="DESC"})
      */
     private $review;
 
@@ -350,5 +356,101 @@ class User extends BaseUser
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * Set aboutMe
+     *
+     * @param string $aboutMe
+     *
+     * @return User
+     */
+    public function setAboutMe($aboutMe)
+    {
+        $this->aboutMe = $aboutMe;
+
+        return $this;
+    }
+
+    /**
+     * Get aboutMe
+     *
+     * @return string
+     */
+    public function getAboutMe()
+    {
+        return $this->aboutMe;
+    }
+
+    /**
+     * Add location
+     *
+     * @param \AppBundle\Entity\Location $location
+     *
+     * @return User
+     */
+    public function addLocation(\AppBundle\Entity\Location $location)
+    {
+        $this->location[] = $location;
+
+        return $this;
+    }
+
+    /**
+     * Remove location
+     *
+     * @param \AppBundle\Entity\Location $location
+     */
+    public function removeLocation(\AppBundle\Entity\Location $location)
+    {
+        $this->location->removeElement($location);
+    }
+
+    /**
+     * Add review
+     *
+     * @param \AppBundle\Entity\Review $review
+     *
+     * @return User
+     */
+    public function addReview(\AppBundle\Entity\Review $review)
+    {
+        $this->review[] = $review;
+
+        return $this;
+    }
+
+    /**
+     * Remove review
+     *
+     * @param \AppBundle\Entity\Review $review
+     */
+    public function removeReview(\AppBundle\Entity\Review $review)
+    {
+        $this->review->removeElement($review);
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \AppBundle\Entity\Photo $photo
+     *
+     * @return User
+     */
+    public function addPhoto(\AppBundle\Entity\Photo $photo)
+    {
+        $this->photo[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \AppBundle\Entity\Photo $photo
+     */
+    public function removePhoto(\AppBundle\Entity\Photo $photo)
+    {
+        $this->photo->removeElement($photo);
     }
 }

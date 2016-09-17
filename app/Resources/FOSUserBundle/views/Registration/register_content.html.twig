@@ -1,11 +1,18 @@
-{% form_theme form 'form/bootstrap3.html.twig' %}
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="formlayout">
-	{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-	    {{ form_widget(form) }}
-	    <div>
-	        <input class="btn btn-form" type="submit" value="{{ 'registration.submit'|trans }}" />
-	    </div>
-	{{ form_end(form) }}
+<div class="loginpage">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4">
+                <div class="loginbox">
+					{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+					    {{ form_widget(form) }}
+					    <div>
+					        <input class="btn" type="submit" value="{{ 'registration.submit'|trans }}" />
+					    </div>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

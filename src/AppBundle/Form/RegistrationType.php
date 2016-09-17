@@ -8,18 +8,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::Class)
-                ->add('surname', TextType::Class)
-                ->add('city', TextType::Class)
-                ->add('country', CountryType::Class)
+        $builder->add('email', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Email')))
+                ->add('username', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Username')))
+                ->add('name', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Name')))
+                ->add('surname', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Surname')))
+                ->add('city', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'City')))
+                ->add('country', CountryType::Class, array('placeholder' => 'Choose your country', 'label' => false))
+                ->add('aboutMe', TextareaType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Tell something about yourself...')))
                 ->add('creationTime', HiddenType::Class, array('data'=>'ciao'))
-                ->add('imageFile', FileType::Class, array('required'=>false))
+                ->add('imageFile', FileType::Class, array('required'=>false, 'label' => false))
                 ->add('imageName', HiddenType::Class, array('empty_data'=>null));
     }
 

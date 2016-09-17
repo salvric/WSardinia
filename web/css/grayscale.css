@@ -161,7 +161,43 @@ select{
     opacity: 0.5;
   }
 }
-.intro {
+/* login page */
+.loginpage{
+  width: 100%;
+  height: auto;
+  padding: 15% 3%;
+  color: white;
+  background: url(../img/cagliarilandscape.jpg) no-repeat bottom center scroll;
+  background-color: #fff;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+.loginbox{
+  background-color: rgba(66,66,66,0.8);  
+  
+  padding: 10%;
+  margin: auto;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+input[type="text"], input[type="password"]{
+  color: #424242;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 5px;
+  border:none;
+  width: 80%;
+}
+div.loginbox div span.help-block{
+  color: #fff;
+}
+
+/* end login page*/
+.intro{
   display: table;
   width: 100%;
   height: auto;
@@ -275,7 +311,7 @@ footer > div > div > a {
   color: #424242;
 }
 .main{
-  padding-top: 5%;
+  padding-top: 8%;
 }
 .titleform{
   text-align: center;
@@ -301,6 +337,7 @@ footer > div > div > a {
   width: 30%;
   text-align: left;
   margin: 0 auto;
+  padding-top: 200px;
 }
 .contactinfo{
   text-align: left;
@@ -319,19 +356,11 @@ footer > div > div > a {
 div.login-form div{
   text-align: center;
 }
-div.login-form input{
-  color: black;
-}
-div.login-form label{
-}
+
 .form-group{
   text-align: left;
 }
-/*#map {
-  width: 100%;
-  height: 200px;
-  margin-top: 100px;
-}*/
+
 @media (min-width: 767px) {
   .content-section {
     padding-top: 50px;
@@ -339,22 +368,23 @@ div.login-form label{
   .review-section {
     padding: 100px 0;
   }
-  /*#map {
-    height: 400px;
-    margin-top: 250px;
-  }*/
 }
 .btn {
     background-color: transparent;
     border: 1.5px solid #fff;
     border-radius: 20px;
     color: #fff;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Roboto",Helvetica,Arial,sans-serif;
     font-weight: 400;
     transition: all 0.3s ease-in-out 0s;
 }
+.dark{
+    border: 1.5px solid #424242;
+    border-radius: 20px;
+    color: #424242;    
+}
 .btn:hover{
-  color: #fff;
+  opacity: 0.5;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -417,6 +447,30 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: rgba(255, 255, 255, 0.7);
 }
+
+/* Profile page */
+.panel{
+  border: none;
+}
+.panel-heading {
+  background-color: transparent;
+}
+.profilebio{
+  font-style: italic;
+}
+.panel-body a{
+  color: #424242;
+  font-weight: bold;
+}
+/*discover page */
+#wsMap {
+   width: 100%; 
+   height:800px;
+}
+#wsMap a {
+   color: #424242;
+}
+
 /* Location page */
 
 .img-banner { 
@@ -664,7 +718,7 @@ div.bubble, .review_thumb{
   border-radius: 4px;
 }
 
-/* If you don't want the footer to be responsive, remove these media queries */
+/* responsive footer */
 
 @media (max-width: 600px) {
 

@@ -34,8 +34,7 @@
         </script>
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-        {% include 'nav.html.twig' %}
-        
+        {% include 'nav.html.twig' %}        
             {% if app.session.flashBag.has('success') %}
             <div class="alert alert-success text-center">
                 {% for msg in app.session.flashBag.get('success') %}
