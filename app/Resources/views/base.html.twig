@@ -15,7 +15,6 @@
         <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Prata" rel="stylesheet">
-
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
         <!-- Theme CSS -->
         <link href="{{ asset('css/grayscale.css') }}" rel="stylesheet">
@@ -29,9 +28,7 @@
 
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEdevajP8g5iulqWBPM3UXUTtrzjJ8rDs&callback=initMap&libraries=places">
-        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU9vc2RUDcwvPyUTv0DuwLPa2SQhRck4c&callback=initMap"></script>
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
         {% include 'nav.html.twig' %}        
@@ -69,10 +66,9 @@
             </footer>
         {% endblock %}
         {% block javascripts %}
-        
+       <!-- <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>-->
         <!-- jQuery -->
         <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
-
         <!-- Bootstrap Core JavaScript -->
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
@@ -80,7 +76,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
         <!-- Theme JavaScript -->
-        <script src="{{ asset('js/grayscale.min.js') }}"></script>
+        <script src="{{ asset('js/grayscale.js') }}"></script>
         <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>
         {% endblock %}
     </body>

@@ -9,6 +9,7 @@ use AppBundle\Entity\Photo;
 use AppBundle\Entity\Review;
 use AppBundle\Form\LocationType;
 use AppBundle\Form\ReviewType;
+use AppBundle\Form\PhotoType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Event\FormEvent;
@@ -91,6 +92,7 @@ class LocationController extends Controller
         }
         // get all the review for the current location
         $reviews = $location->getReview();
+        $photos = $location->getPhoto();
         
         // get the rating average
         $rating[] = null;
@@ -103,7 +105,7 @@ class LocationController extends Controller
             }
             $avRating = ceil(array_sum($rating)/count($rating));
         }
-
+        //add review 
         $review = new Review();
         $formAddReview = $this->createForm(ReviewType::class, $review);
         $formAddReview->handleRequest($request);
@@ -124,27 +126,48 @@ class LocationController extends Controller
             $url = $this->generateUrl('location', array('id'=>$lastId));
             return $this->redirect($url);
         }
-        return $this->render('default/location.html.twig', array('location'=>$location, 'reviews'=>$reviews,'rating'=>$avRating, 'formAddReview'=>$formAddReview->createView()));
+        //add pictures for the current location shown
+        $photo = new Photo();
+        $formPhoto = $this->createForm(PhotoType::class, $photo);     
+        
+        //handle the submit
+        $formPhoto->handleRequest($request);
+        if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {            
+
+            // get the user id
+            $user = $this->getUser();
+
+            // set the user id field
+            $photo->setUser($user);
+            $photo->setLocation($location);
+            $photo->setDatePost('now');
+
+            // save the user and form 
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($photo);
+            $em->flush();           
+
+            $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Photo added succefully!');
+
+            $lastId = $location->getId();
+            $url = $this->generateUrl('location', array('id'=>$lastId));
+            return $this->redirect($url);
+        }
+
+        return $this->render('default/location.html.twig', array('location'=>$location, 'reviews'=>$reviews,'rating'=>$avRating, 'photos'=>$photos, 'formAddReview'=>$formAddReview->createView(), 'formAddPhoto'=>$formPhoto->createView()));
     }
 
 
     /**
     * @Route("/", name="homepage")
     */
-    public function showLatestLocation()
+    public function showLatestLocationAction()
     {
         $em = $this->getDoctrine()->getManager();
         $locations = $em->getRepository('AppBundle:Location')->findLatest(4);
         return $this->render('default/index.html.twig', array('lastLocations'=>$locations));
     }
-    
-    /**
-    * @Route("/location/{id}/add_photo", name="addphoto")
-    */
-    public function addPhoto($id, Request $request)
-    {
-
-    }
-
 
 }

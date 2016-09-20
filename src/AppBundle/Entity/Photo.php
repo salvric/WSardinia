@@ -13,7 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Table(name="photo")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoRepository")
- * 
+ * @Vich\Uploadable
  */
 class Photo
 {
@@ -42,8 +42,7 @@ class Photo
     private $user;
 
     /**
-     * @Assert\Image(
-     *   maxWidth = 800,maxHeight=800, maxSize = "2048k")     
+     *   
      * 
      * @Vich\UploadableField(mapping="location_image", fileNameProperty="imageName", nullable=true)
      * 
@@ -54,7 +53,7 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="imageName", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageName;
 
@@ -68,7 +67,7 @@ class Photo
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_post", type="datetime")
+     * @ORM\Column(name="date_post", type="datetime", nullable=true)
      */
     private $datePost;
 
@@ -79,6 +78,12 @@ class Photo
      */
     private $status = true;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $imageDesc;
 
     /**
      * Get id
@@ -262,5 +267,29 @@ class Photo
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set imageDesc
+     *
+     * @param string $imageDesc
+     *
+     * @return Photo
+     */
+    public function setImageDesc($imageDesc)
+    {
+        $this->imageDesc = $imageDesc;
+
+        return $this;
+    }
+
+    /**
+     * Get imageDesc
+     *
+     * @return string
+     */
+    public function getImageDesc()
+    {
+        return $this->imageDesc;
     }
 }
