@@ -17,7 +17,6 @@ h4,
 h5,
 h6 {
   margin: 0 0 5px;
-  text-transform: capitalize;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   letter-spacing: 1px;
@@ -31,7 +30,6 @@ body::-moz-selection { background: yellow; }
 body::selection { background: yellow; }
 @media (min-width: 768px) {
   p {
-    /*margin: 0 0 35px;*/
     font-size: 15px;
     line-height: 1.6;
   }
@@ -44,7 +42,6 @@ body::selection { background: yellow; }
 
 }
 a {
-  color: #ffffff;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -147,7 +144,6 @@ select{
 
 @media (min-width: 768px) {
   .navbar-custom {
-    /*padding: 10px 0;*/
     border-bottom: none;
     letter-spacing: 1px;
     background: #0073AA;
@@ -161,6 +157,7 @@ select{
     opacity: 0.5;
   }
 }
+
 /* login page */
 .loginpage{
   width: 100%;
@@ -176,14 +173,13 @@ select{
 }
 .loginbox{
   background-color: rgba(66,66,66,0.8);  
-  
   padding: 10%;
   margin: auto;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-input[type="text"], input[type="password"]{
+.loginbox input[type="text"], .loginbox input[type="password"]{
   color: #424242;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -297,9 +293,6 @@ div.loginbox div span.help-block{
     transform: scale(1);
   }
 }
-.content-section {
-  padding-top: 50px;
-}
 
 
 div.main-footer {
@@ -312,6 +305,7 @@ footer > div > div > a {
 }
 .main{
   padding-top: 8%;
+  min-height: 100%;
 }
 .titleform{
   text-align: center;
@@ -337,7 +331,7 @@ footer > div > div > a {
   width: 30%;
   text-align: left;
   margin: 0 auto;
-  padding-top: 200px;
+  padding-top: 8%;
 }
 .contactinfo{
   text-align: left;
@@ -357,14 +351,8 @@ div.login-form div{
   text-align: center;
 }
 
-.form-group{
-  text-align: left;
-}
 
 @media (min-width: 767px) {
-  .content-section {
-    padding-top: 50px;
-  }
   .review-section {
     padding: 100px 0;
   }
@@ -430,13 +418,13 @@ ul.banner-social-buttons {
 
 ::-moz-selection {
   text-shadow: none;
-  background: #fcfcfc;
-  background: rgba(255, 255, 255, 0.8);
+  background: #808080;
+  background: rgba(128,128,128,0.6);
 }
 ::selection {
   text-shadow: none;
-  background: #fcfcfc;
-  background: rgba(255, 255, 255, 0.8);
+  background: #808080;
+  background: rgba(128,128,128,0.6);
 }
 img::selection {
   background: transparent;
@@ -445,10 +433,52 @@ img::-moz-selection {
   background: transparent;
 }
 body {
-  webkit-tap-highlight-color: rgba(255, 255, 255, 0.7);
+  webkit-tap-highlight-color: rgba(128,128,128,0.6);
 }
 
+.alert {
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  width: 20%;
+  z-index: 99;
+}
+/* Request password */
+
+.content-section {
+  min-height: 85%;
+}
+.content-section p {
+  padding-top: 200px;
+  padding-right: 2%;
+  padding-left: 2%;
+  text-align: center;
+  font-size: 1.5em;
+}
+section.content-section div.fos_user_user_show p {
+  padding-top: 0;
+}
+div.fos_user_user_show{
+  padding-top: 200px;
+}
+.request-password {
+  padding-top: 200px;
+}
+/* Forms */
+.addlocationBox {
+  background-color: rgba(66,66,66,0.8);  
+  padding: 10%;
+  margin: auto;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.addlocationBox input {
+  width: 100%;
+
+}
 /* Profile page */
+
 .panel{
   border: none;
 }
@@ -462,11 +492,19 @@ body {
   color: #424242;
   font-weight: bold;
 }
-/*discover page */
+.modal-body form div.form-group, .modal-body form div.form-control-file {
+  text-align: left;
+}
+.modal-body form div input {
+  width: 100%;
+}
+/* Discover page */
+
 #wsMap {
    width: 100%; 
-   height:600px;
+   height: 85%;   
 }
+
 #wsMap a {
    color: #424242;
 }
@@ -499,6 +537,16 @@ body {
   background-position: center;
   background-size: cover;
 }
+.panel-default > .panel-heading {
+  background-color: #ffffff;
+}
+.list-group-item {
+  padding: 20px 15px;
+}
+.activities-panel {
+  background-color: #ffffff;
+  padding: 2%;
+}
 
 .loc_title{
   display: inline-block;
@@ -530,6 +578,10 @@ body {
 }
 .title_review {
   margin: 40px 2px;
+  display: inline-block;
+}
+.title_act{
+  margin: 0px 2px 40px 2px;
   display: inline-block;
 }
 .plusbutton{
@@ -619,10 +671,15 @@ div.bubble, .review_thumb{
 }
 .thumbLoc {
   width: 30%;
-  height: 200px;
+  height: 150px;
   background-position: center;
   background-size: cover;
   display: inline-block;
+}
+.thumbLoc:hover{
+  -webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
 }
 
 /* Home page */
@@ -674,11 +731,10 @@ div.bubble, .review_thumb{
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   width: 100%;
-  height: 150px;
+  /*height: 15%;*/
   text-align: left;
   font: normal 16px sans-serif;
   padding: 45px 50px;
-  margin-top: 10px ;
 }
 
 .footer-distributed .footer-left p{

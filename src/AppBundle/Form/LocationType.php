@@ -34,7 +34,7 @@ class LocationType extends AbstractType
                                                 'Mountain'=>'Mountain',
                                                 'Town'=>'town',
                                                 'Natural Reserve'=>'natural_reserve')))
-            ->add('imageFile', FileType::Class, array('required'=>false))
+            ->add('imageFile', FileType::Class, array('required'=>true))
             ->add('imageName', HiddenType::Class, array('empty_data'=>null));
             
     }

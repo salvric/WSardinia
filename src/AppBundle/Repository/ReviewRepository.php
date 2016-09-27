@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class ReviewRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getReviewByLocation($location)
+	{
+        $queryBuilder = $this->createQueryBuilder('r')
+        					 ->where('r.location = :location')
+	    			         ->orderBy('r.dateIns', 'DESC')
+    			             ->setParameter('location', $location);
+    	return $queryBuilder;
+	}
 }

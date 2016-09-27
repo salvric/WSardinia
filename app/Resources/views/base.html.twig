@@ -16,6 +16,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Prata" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/starrating/css/rating.css') }}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.3.0/css/lightgallery.css" />
         <!-- Theme CSS -->
         <link href="{{ asset('css/grayscale.css') }}" rel="stylesheet">
 
@@ -27,35 +28,37 @@
         <![endif]-->
 
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU9vc2RUDcwvPyUTv0DuwLPa2SQhRck4c&callback=initMap"></script>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
+        <script src="https://maps.googleapis.com/maps/api/js?key= AIzaSyCQSr9sJ31UIcpj8tA2x0ipLcFA5dbrqc4&callback=initMap"></script>
     </head>
     <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-        {% include 'nav.html.twig' %}        
-            {% if app.session.flashBag.has('success') %}
-            <div class="alert alert-success text-center">
+        {% include 'nav.html.twig' %}  
+        {% if app.session.flashBag.has('success') %}
+            <div id="#messages" class="alert alert-success text-center">
                 {% for msg in app.session.flashBag.get('success') %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     {{ msg }}
                 {% endfor %}
             </div>
-            {% endif %}
-            {% block content %}          
+        {% endif %}        
+            {% block content %}        
             {% endblock %}        
         {% block footer %}
             <footer class="footer-distributed">
                 <div class="footer-right">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-github"></i></a>
+                    <a href="http://www.facebook.com"><i class="fa fa-facebook"></i></a>
+                    <a href="https://be.linkedin.com/in/salvatore-ricciu"><i class="fa fa-linkedin"></i></a>
+                    <a href="https://github.com/sluzux"><i class="fa fa-github"></i></a>
                 </div>
                 <div class="footer-left">
                     <p class="footer-links">
-                        <a href="#">Home</a>
+                        <a href="{{ path('homepage') }}">Home</a>
                         ·
-                        <a href="#">Discover</a>
+                        <a href="{{ path('discover') }}">Discover</a>
                         ·
-                        <a href="#">Learn</a>
+                        <a href="{{ path('blog') }}">Blog</a>
                         ·
                         <a href="#">About</a>
                         ·
@@ -66,7 +69,6 @@
             </footer>
         {% endblock %}
         {% block javascripts %}
-       <!-- <script src="https://unpkg.com/flickity@2.0/dist/flickity.pkgd.min.js"></script>-->
         <!-- jQuery -->
         <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
         <!-- Bootstrap Core JavaScript -->
@@ -74,7 +76,7 @@
 
         <!-- Plugin JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.3.0/js/lightgallery.js"></script>
         <!-- Theme JavaScript -->
         <script src="{{ asset('js/grayscale.js') }}"></script>
         <script src="{{ asset('bundles/starrating/js/rating.js') }}"></script>

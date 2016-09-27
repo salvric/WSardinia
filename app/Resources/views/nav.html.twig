@@ -18,7 +18,7 @@
                         <a class="page-scroll" href="{{ path('discover') }}">Discover</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Learn</a>
+                        <a class="page-scroll" href="{{ path('blog') }}">Blog</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="{{ path('homepage') }}#about">About</a>
@@ -60,6 +60,9 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <li>
                                     <a href="{{ path('admin') }}">Admin Panel</a>
+                                </li>
+                                <li>
+                                    <!--<a href="">Add Post</a>-->
                                 </li>
                                 {% endif %}
                                 <li>

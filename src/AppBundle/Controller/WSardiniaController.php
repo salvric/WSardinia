@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Form\UserType;
 use AppBundle\Form\LocationType;
+use AppBundle\Form\BlogType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Event\FormEvent;
@@ -68,6 +69,17 @@ class WSardiniaController extends Controller
         $reviews = $user->getReview();
         return $this->render('default/user_profile.html.twig',array('form'=>$form->createView(),'locations'=>$locations, 'reviews'=>$reviews));
     }
+    
+    /**
+    * @Route("/", name="homepage")
+    */
+    public function showLatestLocationAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locations = $em->getRepository('AppBundle:Location')->findLatest(4);
+        return $this->render('default/index.html.twig', array('lastLocations'=>$locations));
+    }
+
     /**
      * @Route("/discover", name= "discover"  )
      */
@@ -81,4 +93,17 @@ class WSardiniaController extends Controller
         return $this->render('default/discover.html.twig', array('locations'=>$json));
 
     }
+
+    /**
+     * @Route("/blog", name= "blog"  )
+     */
+    public function blogAction()
+    {
+        
+        $em = $this->getDoctrine()->getManager();
+        $blog = $em->getRepository('AppBundle:Blog')->findAll();
+        return $this->render('default/blog_loop.html.twig', array('blogs'=>$blog));
+
+    }
+
 }

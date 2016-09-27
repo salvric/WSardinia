@@ -62,6 +62,14 @@ class Location
     private $photo;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="location")
+     * 
+     * @ORM\OrderBy({"dateIns"="DESC"})
+     */
+    private $activity;
+
+    /**
      * 
      * @Vich\UploadableField(mapping="location_image", fileNameProperty="imageName")
      * 
@@ -137,6 +145,7 @@ class Location
     {
         $this->review = new ArrayCollection();
         $this->photo = new ArrayCollection();
+        $this->activity = new ArrayCollection();
     }
 
     /**
@@ -405,5 +414,15 @@ class Location
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * Get Activity
+     *
+     * @return ArrayCollection|Activity[]
+     */
+    public function getActivity()
+    {
+        return $this->activity;
     }
 }

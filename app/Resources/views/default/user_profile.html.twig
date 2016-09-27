@@ -97,7 +97,7 @@
             <div class="panel-heading"><h4>Latest activities</h4></div>
             <div class="panel-body">
               {% if locations is empty %}
-                <p>You have no recent activities</p>
+                <p>You have no recent locations</p>
               {% else %}
                 {% for location in locations %}                  
                   {{ location.dateIns | humanDate }} you added <a href="{{ path('location', {'id': location.id }) }}">"{{ location.name }}"</a><hr>  

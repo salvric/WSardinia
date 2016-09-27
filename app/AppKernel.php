@@ -25,7 +25,8 @@ class AppKernel extends Kernel
             new blackknight467\StarRatingBundle\StarRatingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Cocur\HumanDate\Bridge\Symfony\CocurHumanDateBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -36,6 +37,11 @@ class AppKernel extends Kernel
         }
 
         return $bundles;
+    }
+    public function __construct($environment, $debug) {
+        parent::__construct($environment, $debug);
+        // get rid of Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone
+        date_default_timezone_set( 'Europe/Paris' );
     }
 
     public function getRootDir()

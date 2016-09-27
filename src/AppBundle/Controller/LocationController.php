@@ -2,16 +2,21 @@
 
 namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Photo;
 use AppBundle\Entity\Review;
+use AppBundle\Entity\Activity;
 use AppBundle\Form\LocationType;
 use AppBundle\Form\ReviewType;
 use AppBundle\Form\PhotoType;
+use AppBundle\Form\ActivityType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
@@ -51,8 +56,7 @@ class LocationController extends Controller
                 throw $this->createNotFoundException('Location not found, try again !');
             }
             $address = $result->first();
-            $localita = $address->getLocality();
-            
+            $localita = $address->getLocality();            
             $location->setLat($address->getLatitude());
             $location->setLng($address->getLongitude());            
 
@@ -60,7 +64,6 @@ class LocationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
-
             
             $lastId=$location->getId();
 
@@ -90,10 +93,27 @@ class LocationController extends Controller
         if (!$location) {
             throw $this->createNotFoundException('Location not found, try again !');
         }
-        // get all the review for the current location
-        $reviews = $location->getReview();
-        $photos = $location->getPhoto();
+
         
+        // get all the datas for the current location
+        $reviews = $location->getReview();
+
+        //pagination method
+        /*$em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('AppBundle:Review')->getReviewByLocation($location)->getQuery();
+        $paginator  = $this->get('knp_paginator');
+        $pageReview = $paginator->paginate(
+            $query, /* query NOT result */
+            //$request->query->getInt('page', 2)/*page number*/,
+            //$request->query->getInt('limit', 2)/*limit per page*/
+        //);
+
+
+        $photos = $location->getPhoto();
+        $em = $this->getDoctrine()->getManager();
+        $sights = $em->getRepository('AppBundle:Activity')->findBySS($location);
+        $sports = $em->getRepository('AppBundle:Activity')->findByOS($location);
+        $others = $em->getRepository('AppBundle:Activity')->findByOT($location);
         // get the rating average
         $rating[] = null;
         if ($reviews == null){
@@ -105,6 +125,27 @@ class LocationController extends Controller
             }
             $avRating = ceil(array_sum($rating)/count($rating));
         }
+
+        //add activities
+        $activity = new Activity();
+        $formAddActivity = $this->createForm(ActivityType::class, $activity);
+        $formAddActivity->handleRequest($request);
+        if ($formAddActivity->isSubmitted() && $formAddActivity->isValid()) {
+            $user = $this->getUser();
+            $activity->setUser($user);
+            $activity->setLocation($location);
+            $activity->setDateIns('now');
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($activity);
+            $em->flush();
+            $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Activity added succefully!');
+            $url = $this->generateUrl('location', array('id'=>$location->getId()));
+            return $this->redirect($url);
+
+        }
+
         //add review 
         $review = new Review();
         $formAddReview = $this->createForm(ReviewType::class, $review);
@@ -122,10 +163,14 @@ class LocationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($review);
             $em->flush();
+            $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Review added succefully!');
             $lastId = $location->getId();
             $url = $this->generateUrl('location', array('id'=>$lastId));
             return $this->redirect($url);
         }
+
         //add pictures for the current location shown
         $photo = new Photo();
         $formPhoto = $this->createForm(PhotoType::class, $photo);     
@@ -156,18 +201,26 @@ class LocationController extends Controller
             return $this->redirect($url);
         }
 
-        return $this->render('default/location.html.twig', array('location'=>$location, 'reviews'=>$reviews,'rating'=>$avRating, 'photos'=>$photos, 'formAddReview'=>$formAddReview->createView(), 'formAddPhoto'=>$formPhoto->createView()));
+        return $this->render('default/location.html.twig', array('location'=>$location, 'reviews'=>$reviews,'rating'=>$avRating, 'photos'=>$photos, 'formAddReview'=>$formAddReview->createView(), 'formAddPhoto'=>$formPhoto->createView(), 'formAddActivity'=>$formAddActivity->createView(), 'sports'=>$sports, 'sights'=>$sights,'others'=>$others));
     }
 
-
     /**
-    * @Route("/", name="homepage")
-    */
-    public function showLatestLocationAction()
+     * @Route("/location/review/delete/{id}", name= "reviewDelete"  ) 
+     */
+    public function reviewDeleteAction($id)
     {
+         //render the contact request 
         $em = $this->getDoctrine()->getManager();
-        $locations = $em->getRepository('AppBundle:Location')->findLatest(4);
-        return $this->render('default/index.html.twig', array('lastLocations'=>$locations));
+        $review = $em->getRepository('AppBundle:Review')->find($id);
+        $location = $review->getLocation();
+        $idLocation = $location->getId();
+        $em->remove($review);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add(
+                                            'success',
+                                            'Comment deleted');
+
+        return $this->redirectToRoute('location', ['id'=> $idLocation]);
     }
 
 }

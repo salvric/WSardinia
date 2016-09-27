@@ -92,10 +92,24 @@ class User extends BaseUser
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="Photo", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="user")
+     * @ORM\OrderBy({"dateIns"="DESC"})
+     */
+    private $activity;
+
+    /**
      *
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="user")
+     * @ORM\OrderBy({"dateIns"="DESC"})
      */
     private $photo;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Blog", mappedBy="user")
+     * @ORM\OrderBy({"dateIns"="DESC"})
+     */
+    private $blog;
     
     /**
      * @Assert\Image(
@@ -127,6 +141,8 @@ class User extends BaseUser
         $this->location = new ArrayCollection();
         $this->review = new ArrayCollection();
         $this->photo = new ArrayCollection();
+        $this->blog = new ArrayCollection();
+        $this->activity = new ArrayCollection();
     }
 
     /**
@@ -356,6 +372,26 @@ class User extends BaseUser
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * Gets the value of blog.
+     *
+     * @return ArrayCollection|Blog[]
+     */
+    public function getBlog()
+    {
+        return $this->blog;
+    }
+
+    /**
+     * Gets the value of activity.
+     *
+     * @return ArrayCollection|Activity[]
+     */
+    public function getActivity()
+    {
+        return $this->activity;
     }
 
     /**

@@ -3,7 +3,7 @@
 <div class="main">
 <div class="container">
     <div class="row-fluid">
-        <div class="col-md-8 card-box">
+        <div class="col-md-7 card-box">
             <div class="img-container" style="background-image:url('{{ asset('images/location/' ~ location.imageName) }}')">
                 <div class="loc_title">
                     <h1>{{ location.name }}</h1>
@@ -16,23 +16,72 @@
                 {{ rating |rating (5, 'fa-norm') }}
             </div>
         </div>
-        <div class="col-md-3 col-md-offset-1 card-box">            
+        <div class="col-md-5">          
             <div class="desc-container">
-                <h3>Activities</h3>
-                <p class="description">
-                    {{ location.description }}
-                </p>
+                <h3 class="title_act">Activities</h3>
+                
+                    <a class="plusbutton" data-toggle="modal" data-target=".activityModal">
+                    <i class="fa fa-plus-square fa-1x"></i></a>
+                <div class="list-group">
+                
+                  <a class="list-group-item" role="button" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;Sightseeing<span class="badge">{{sights|length}}</span></a>
+                      <div class="collapse" id="collapse1">
+                          <div class="activities-panel">
+                            {% for sight in sights %}
+                            <strong>&nbsp;{{sight.title}}</strong>
+                            <p>&nbsp;&nbsp;{{sight.description}}</p>
+                            {% endfor %}                            
+                          </div>
+                     </div>
+                 <a class="list-group-item" role="button" data-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-tree" aria-hidden="true"></i>&nbsp;Outdoor sports<span class="badge">{{sports|length}}</span></a>
+                      <div class="collapse" id="collapse2">
+                          <div class="activities-panel">
+                            {% for sport in sports %}
+                            <strong> {{sport.title}}</strong>
+                            <p>  {{sport.description}}</p>
+                            {% endfor %}                           
+                          </div>
+                     </div>
+                 <a class="list-group-item" role="button" data-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapseExample">Others<span class="badge">{{others|length}}</span></a>
+                      <div class="collapse" id="collapse3">
+                          <div class="activities-panel">
+                            {% for other in others %}
+                            <strong>{{other.title}}</strong>
+                            <p>{{other.description}}</p>
+                            {% endfor %}                         
+                          </div>
+                     </div>
+                
+                  <div class="modal fade activityModal" tabindex="-1" role="dialog" aria-labelledby="activityModal">
+                      <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ form_start(formAddActivity) }}
+                            {{ form_widget(formAddActivity) }}  
+                            <div class="modal-footer">
+                            <button type="submit" class="btn dark">Save</button>
+                            {{ form_end(formAddActivity)}}
+                            </div>
+                        </div>
+                        </div>
+                      </div>            
+                  </div>
+                </div>
             </div>            
         </div>
     </div>
+</div>
+<div class="container">
     <div class="row-fluid">
         <div class="col-md-5 card-box margin-top">
             <input id="latitude" type="hidden" value="{{location.lat}}">
             <input id="longitude" type="hidden" value="{{location.lng}}">
             <div id="map" class="card-box" style="width:100%; height:400px"></div>
             <script>
-            var lat = document.getElementById('latitude').value;
-            var lng = document.getElementById('longitude').value;             
+                var lat = document.getElementById('latitude').value;
+                var lng = document.getElementById('longitude').value;     
                 
                 var myCenter = new google.maps.LatLng(lat,lng);
                 var mapCanvas = document.getElementById("map");
@@ -50,16 +99,19 @@
             {% if photos is empty %}
                 <p>Be the first to post a picture about {{location.name}}</p>                    
             {% else %}
-            {% for photo in photos %}              
-            <div class="thumbLoc" style="background-image:url('{{ asset('images/location/' ~ photo.imageName) }}')"></div>
-            <div class="thumbLoc" style="background-image:url('{{ asset('images/location/' ~ photo.imageName) }}')"></div>
+            <div id="animated-thumbnails">
+            {% for photo in photos %}           
+                <a href="{{ asset('images/location/' ~ photo.imageName) }}" data-sub-html="<h4>{{photo.imageDesc}}</h4>">
+                    <div class="thumbLoc" style="background-image:url('{{ asset('images/location/' ~ photo.imageName) }}')">
+                    </div>
+                </a>            
             {% endfor %}
+            </div>
             {% endif %}
-
             <div class="modal fade photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModal">
               <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                     </button>
                     {{ form_start(formAddPhoto) }}
@@ -69,10 +121,9 @@
                     {{ form_end(formAddPhoto) }}
                     </div>
                 </div>
-              </div>
+                </div>
+              </div>            
             </div>
-            
-        </div>
     </div>    
 </div>
 <div class="container">
@@ -80,18 +131,28 @@
         <div class="col-md-12 margin-top text-center">
             <div class="review-container">
                 <h3 class="title_review">Review</h3>
-                <a class="plusbutton" data-toggle="collapse" href="#showform" aria-expanded="false" aria-controls="showform"><i class="fa fa-plus-square fa-1x"></i></a>
-                {% if reviews is empty %}
+                <a class="plusbutton" data-toggle="modal" data-target=".reviewModal">
+                <i class="fa fa-plus-square fa-1x"></i>
+                </a>
+                <!--{% if reviews is empty %}
                     <p>Be the first to leave a review</p>                    
-                {% endif %}
-                <div class="collapse" id="showform">
-                  <div class="card-box review-form">
+                {% endif %}-->
+                <div class="modal fade reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModal">
+                <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
                     {{ form_start(formAddReview) }}
                     {{ form_widget(formAddReview) }}
+                    <div class="modal-footer">
                     <button type="submit" class="btn dark">Save</button>
                     {{ form_end(formAddReview) }}
-                  </div>
+                    </div>
                 </div>
+                </div>
+              </div>            
+            </div>
                 {% for review in reviews %}
                     <div class="single_review">
                         <div class="review_thumb" style="background-image:url('{{ asset('images/profile/' ~ review.user.imageName) }}')">
@@ -100,10 +161,17 @@
                            {{review.comment}}
                            <div class="userdetails">
                                 {{review.user.username}}  on {{review.dateIns | date ('j M Y')}}
+                                {{ review.rating |rating (5, 'fa-norm') }}
+                            {% if review.user.id == app.user.id %}
+                                <div class="text-right">
+                                <a href="{{ path('reviewDelete', {'id': review.id }) }}"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
+                                </div>
+                            {% endif %}
                            </div>
                         </div>
                     </div>
-                {% endfor %}   
+               {% endfor %}
+                
             </div>
         </div>
     </div>

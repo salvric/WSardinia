@@ -107,6 +107,13 @@ vich_uploader:
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
+        blog_image:
+            uri_prefix:         /images/blog
+            upload_destination: %kernel.root_dir%/../web/images/blog
+            namer:              vich_uploader.namer_uniqid
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
 
 #geolocation
 services:
@@ -126,4 +133,15 @@ bazinga_geocoder:
             locale:               null
             region:               null
             use_ssl:              true
-            api_key:              AIzaSyCO5MTZ8XXrxMsCyz0YSGzvqBikF3wPimk
+            api_key:              AIzaSyCQSr9sJ31UIcpj8tA2x0ipLcFA5dbrqc4
+#paginator
+knp_paginator:
+    page_range:                 5          # default page range used in pagination control
+    default_options:
+        page_name:              page       # page query parameter name
+        sort_field_name:        sort       # sort field query parameter name
+        sort_direction_name:    direction  # sort direction query parameter name
+        distinct:               true       # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+        sortable:   KnpPaginatorBundle:Pagination:sortable_link.html.twig                         # sort link template
