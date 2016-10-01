@@ -101,7 +101,7 @@
             {% else %}
             <div id="animated-thumbnails">
             {% for photo in photos %}           
-                <a href="{{ asset('images/location/' ~ photo.imageName) }}" data-sub-html="<h4>{{photo.imageDesc}}</h4>">
+                <a href="{{ asset('images/location/' ~ photo.imageName) }}" data-sub-html="<h3>{{photo.imageDesc}}</h3>">
                     <div class="thumbLoc" style="background-image:url('{{ asset('images/location/' ~ photo.imageName) }}')">
                     </div>
                 </a>            
@@ -134,9 +134,9 @@
                 <a class="plusbutton" data-toggle="modal" data-target=".reviewModal">
                 <i class="fa fa-plus-square fa-1x"></i>
                 </a>
-                <!--{% if reviews is empty %}
-                    <p>Be the first to leave a review</p>                    
-                {% endif %}-->
+                {% if reviews is empty %}
+                    <p>Be the first to leave a review about {{location.name}}</p>                    
+                {% endif %}
                 <div class="modal fade reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModal">
                 <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
@@ -164,14 +164,13 @@
                                 {{ review.rating |rating (5, 'fa-norm') }}
                             {% if review.user.id == app.user.id %}
                                 <div class="text-right">
-                                <a href="{{ path('reviewDelete', {'id': review.id }) }}"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
+                                <a class="btn-delete" href="{{ path('reviewDelete', {'id': review.id }) }}"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></a>
                                 </div>
                             {% endif %}
                            </div>
                         </div>
                     </div>
-               {% endfor %}
-                
+               {% endfor %}                
             </div>
         </div>
     </div>

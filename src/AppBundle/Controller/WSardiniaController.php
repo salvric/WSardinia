@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Form\UserType;
 use AppBundle\Form\LocationType;
 use AppBundle\Form\BlogType;
+use AppBundle\Entity\Blog;
+use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Event\FormEvent;
@@ -69,12 +71,20 @@ class WSardiniaController extends Controller
         $reviews = $user->getReview();
         return $this->render('default/user_profile.html.twig',array('form'=>$form->createView(),'locations'=>$locations, 'reviews'=>$reviews));
     }
-    
+
     /**
     * @Route("/", name="homepage")
     */
-    public function showLatestLocationAction()
+    public function showLatestLocationAction(Request $request)
     {
+        $searchQuery = $request->get('query');
+        
+        if(!empty($searchQuery)){
+            $finder = $this->container->get('fos_elastica.finder.app.location');
+            $users = $finder->find($searchQuery);
+            dump($users);
+        }
+
         $em = $this->getDoctrine()->getManager();
         $locations = $em->getRepository('AppBundle:Location')->findLatest(4);
         return $this->render('default/index.html.twig', array('lastLocations'=>$locations));
@@ -97,12 +107,21 @@ class WSardiniaController extends Controller
     /**
      * @Route("/blog", name= "blog"  )
      */
-    public function blogAction()
+    public function blogAction(Request $request)
     {
         
         $em = $this->getDoctrine()->getManager();
-        $blog = $em->getRepository('AppBundle:Blog')->findAll();
-        return $this->render('default/blog_loop.html.twig', array('blogs'=>$blog));
+        //$blog = $em->getRepository('AppBundle:Blog')->findAll();
+
+        $dql = "SELECT b FROM AppBundle:Blog b ORDER BY b.datePost DESC";
+        $blogs = $em->createQuery($dql);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $blogs, $request->query->getInt('page', 1),3
+        );
+
+        return $this->render('default/blog_loop.html.twig', array('pagination'=>$pagination));
 
     }
 

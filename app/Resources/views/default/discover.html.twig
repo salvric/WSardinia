@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block content %}
 {% block javascripts%}
+
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-<script type="text/javascript">		
-
+<script type="text/javascript">	
 
 	var locations = JSON.parse('{{ locations | raw }}');
     var map = new google.maps.Map(document.getElementById('wsMap'), {
@@ -12,8 +12,7 @@
 	  center: new google.maps.LatLng(40.0562194, 7.8577928),
 	  disableDefaultUI: false,
       scrollwheel: false,
-      draggable: true,
-      styles : [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"hue":"#009fff"}]}]
+      draggable: true
 	});
     var infowindow = new google.maps.InfoWindow();
 	var marker, i;
@@ -34,11 +33,9 @@
         	}
     	})(marker, i, url));
 	}
-   
 </script>
 {% endblock %}
 
-    <div id="wsMap" ></div>
-    
+    <div id="wsMap" ></div>   
 
 {% endblock %}

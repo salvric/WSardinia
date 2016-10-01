@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="`user`")
+ * 
  * @Vich\Uploadable
  */
 class User extends BaseUser
@@ -27,6 +28,7 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=255)
      *
      * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * 
      * @Assert\Length(
      *     min=2,
      *     max=255,
@@ -489,4 +491,5 @@ class User extends BaseUser
     {
         $this->photo->removeElement($photo);
     }
+
 }

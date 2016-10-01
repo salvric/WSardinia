@@ -16,7 +16,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="location")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\LocationRepository")
- * @Vich\Uploadable
+ * 
+ * @Vich\Uploadable   
+ * 
  */
 class Location
 {
@@ -34,6 +36,7 @@ class Location
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * 
      */
     public $name;
     

@@ -108,7 +108,6 @@ class LocationController extends Controller
             //$request->query->getInt('limit', 2)/*limit per page*/
         //);
 
-
         $photos = $location->getPhoto();
         $em = $this->getDoctrine()->getManager();
         $sights = $em->getRepository('AppBundle:Activity')->findBySS($location);

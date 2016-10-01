@@ -7,7 +7,7 @@ easy_admin:
     entities:
         User:
             class: AppBundle\Entity\User
-            image_base_path: '/images/profile'
+            image_base_path: '/WSardinia/web/images/profile'
             disabled_actions: ['new']
             list:
                 title: User list
@@ -28,13 +28,34 @@ easy_admin:
                       - email
                       - city
                       - country
+                      - { property: 'aboutMe', type: 'textarea'}
                       - { property: 'plainPassword', type: 'password', label: 'Password' }
                       - roles 
                       - lastLogin
                       - { property: 'imageFile', label: 'Avatar',  type: 'file' }
+        Blog:
+            class: AppBundle\Entity\Blog
+            image_base_path: '/WSardinia/web/images/blog'
+            list:
+                title : Blog
+                fields :
+                      - title
+                      - summary
+                      - user
+                      - { property: datePost, label: 'Date post', type: 'date' }
+                      - { property: 'imageName', label: 'Post image', type: 'image' }
+            form:
+                fields:
+                      - user
+                      - title
+                      - { property: summary, label: 'Summary', type: 'textarea' }
+                      - { property: content, label: 'Article', type: 'textarea' }
+                      - { property: datePost, label: 'Date post', type: 'date' }
+                      - { property: 'imageFile', label: 'Post image', type: 'file', help: 'Select a picture to upload in the post' }
+
         Location:
             class: AppBundle\Entity\Location
-            image_base_path: '/images/profile'
+            image_base_path: '/web/images/location'
             disabled_actions: 
             list:
                 title: Location list
@@ -51,4 +72,23 @@ easy_admin:
                       - category
                       - { property: description, type: 'textarea'}
                       - user
+                      - { property: 'imageFile', label: 'Timeline photo',  type: 'file' }
                       - { property: 'dateIns', label: 'Date post',  type: 'datetime' }
+        Review:
+            class: AppBundle\Entity\Review
+            disabled_actions: 
+            list:
+                title: Review list
+                fields: 
+                      - comment
+                      - rating
+                      - user
+                      - { property: 'location.name', label: 'Location'}
+                      - { property: 'dateIns', label: 'Date post',  type: 'date' }
+            form:
+                fields:                      
+                      - comment
+                      - rating
+                      - user
+                      - { property: 'location', label: 'Location'}
+                      - { property: 'dateIns', label: 'Date post',  type: 'date' }

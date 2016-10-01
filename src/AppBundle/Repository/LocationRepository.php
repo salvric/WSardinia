@@ -13,6 +13,7 @@ class LocationRepository extends \Doctrine\ORM\EntityRepository
 	public function findLatest($limit) 
 	{
     	return $this->createQueryBuilder('e')
+    				->andWhere('e.status = 1')
     				->orderBy('e.dateIns', 'DESC')
 			        ->setMaxResults($limit)
 			        ->getQuery() 
@@ -22,6 +23,7 @@ class LocationRepository extends \Doctrine\ORM\EntityRepository
 	{
 		return $this->createQueryBuilder('p')
 					  ->select('p.id, p.name, p.lat, p.lng')
+					  ->andWhere('p.status = 1')
 					  ->getQuery()
 					  ->getResult();
 	}

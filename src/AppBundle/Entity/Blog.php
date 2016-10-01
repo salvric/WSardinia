@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Algolia\AlgoliaSearchBundle\Mapping\Annotation as Algolia;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -14,6 +15,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="blog")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BlogRepository")
  * @Vich\Uploadable
+ * @Algolia\Index(
+ *     attributesToIndex = {"title", "summary"},
+ *     customRanking = {"asc(title)" })
  */
 class Blog
 {
