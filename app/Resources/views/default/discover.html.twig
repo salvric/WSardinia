@@ -1,41 +1,41 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-{% block javascripts%}
-
-<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-<script type="text/javascript">	
-
-	var locations = JSON.parse('{{ locations | raw }}');
-    var map = new google.maps.Map(document.getElementById('wsMap'), {
-	  zoom: 7,
-	  center: new google.maps.LatLng(40.0562194, 7.8577928),
-	  disableDefaultUI: false,
-      scrollwheel: false,
-      draggable: true
-	});
-    var infowindow = new google.maps.InfoWindow();
-	var marker, i;
-
-	for (i = 0; i < locations.length; i++) {
-	    marker = new google.maps.Marker({
-	        position: new google.maps.LatLng(locations[i]['lat'], locations[i]['lng']),
-	        map: map,
-	        title: locations[i]['name']
-    	});
-    	var idloc = locations[i]['id'];
-    	var contentString = Routing.generate("location", { id: idloc });
-    	var url = '<a href="'+contentString+'">'+ locations[i]['name'] +'</a>';
-    	google.maps.event.addListener(marker, 'click', (function(marker, i, url) {
-        return function() {
-            infowindow.setContent(url);
-            infowindow.open(map, marker);
-        	}
-    	})(marker, i, url));
-	}
-</script>
-{% endblock %}
 
     <div id="wsMap" ></div>   
 
+{% endblock %}
+{% block javascripts%}
+{{ parent() }}
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script type="text/javascript"> 
+
+    var locations = JSON.parse('{{ locations | raw }}');
+    var map = new google.maps.Map(document.getElementById('wsMap'), {
+      zoom: 7,
+      center: new google.maps.LatLng(40.0562194, 7.8577928),
+      disableDefaultUI: false,
+      scrollwheel: false,
+      draggable: true
+    });
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i]['lat'], locations[i]['lng']),
+            map: map,
+            title: locations[i]['name']
+        });
+        var idloc = locations[i]['id'];
+        var contentString = Routing.generate("location", { id: idloc });
+        var url = '<a href="'+contentString+'">'+ locations[i]['name'] +'</a>';
+        google.maps.event.addListener(marker, 'click', (function(marker, i, url) {
+        return function() {
+            infowindow.setContent(url);
+            infowindow.open(map, marker);
+            }
+        })(marker, i, url));
+    }
+</script>
 {% endblock %}

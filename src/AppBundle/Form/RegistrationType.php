@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationType extends AbstractType
@@ -17,6 +19,10 @@ class RegistrationType extends AbstractType
     {
         $builder->add('email', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Email')))
                 ->add('username', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Username')))
+                ->add('plainPassword', RepeatedType::Class, 
+                    array('type'=>PasswordType::Class,
+                          'first_options' => array('label' => false, 'attr'=>array('placeholder'=>'Password')),
+                          'second_options' => array('label' => false, 'attr'=>array('placeholder'=>'Repeat password')))
                 ->add('name', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Name')))
                 ->add('surname', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Surname')))
                 ->add('city', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'City')))
