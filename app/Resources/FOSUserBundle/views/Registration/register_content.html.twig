@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-lg-offset-3">
-                <div class="loginbox">
+                <div class="signupbox">
+                	<h3>Signup</h3><br>
 					{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
 					    {{ form_widget(form) }}
 					    <div>

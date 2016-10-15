@@ -22,14 +22,15 @@ class RegistrationType extends AbstractType
                 ->add('plainPassword', RepeatedType::Class, 
                     array('type'=>PasswordType::Class,
                           'first_options' => array('label' => false, 'attr'=>array('placeholder'=>'Password')),
-                          'second_options' => array('label' => false, 'attr'=>array('placeholder'=>'Repeat password')))
+                          'second_options' => array('label' => false, 'attr'=>array('placeholder'=>'Repeat password')),
+                          'invalid_message' => 'fos_user.password.mismatch'))
                 ->add('name', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Name')))
                 ->add('surname', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Surname')))
                 ->add('city', TextType::Class, array('label' => false, 'attr'=>array('placeholder'=>'City')))
                 ->add('country', CountryType::Class, array('placeholder' => 'Choose your country', 'label' => false))
                 ->add('aboutMe', TextareaType::Class, array('label' => false, 'attr'=>array('placeholder'=>'Tell something about yourself...')))
                 ->add('creationTime', HiddenType::Class, array('data'=>'ciao'))
-                ->add('imageFile', FileType::Class, array('required'=>false, 'label' => false))
+                ->add('imageFile', FileType::Class, array('required'=>false, 'label' => 'Upload a profile pictures'))
                 ->add('imageName', HiddenType::Class, array('empty_data'=>null));
     }
 

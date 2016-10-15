@@ -74,6 +74,27 @@ easy_admin:
                       - user
                       - { property: 'imageFile', label: 'Timeline photo',  type: 'file' }
                       - { property: 'dateIns', label: 'Date post',  type: 'datetime' }
+        Photo:
+            class: AppBundle\Entity\Photo
+            image_base_path: '/web/images/location'
+            disabled_actions: 
+            list:
+                title: Photo list
+                fields: 
+                      - { property: 'status', label: 'Enabled'}
+                      - name
+                      - category
+                      - user
+                      - { property: 'dateIns', label: 'Date post',  type: 'date' }
+            form:
+                fields: 
+                      - { property: 'status', label: 'Enabled'}
+                      - name
+                      - category
+                      - { property: description, type: 'textarea'}
+                      - user
+                      - { property: 'imageFile', label: 'Timeline photo',  type: 'file' }
+                      - { property: 'dateIns', label: 'Date post',  type: 'datetime' }
         Review:
             class: AppBundle\Entity\Review
             disabled_actions: 
@@ -91,4 +112,16 @@ easy_admin:
                       - rating
                       - user
                       - { property: 'location', label: 'Location'}
+                      - { property: 'dateIns', label: 'Date post',  type: 'date' }
+        Activity:
+            class: AppBundle\Entity\Activity
+            disabled_actions: 
+            list:
+                title: Activity list
+                fields: 
+                      - title
+                      - description
+                      - user
+                      - activityType
+                      - { property: 'location.name', label: 'Location'}
                       - { property: 'dateIns', label: 'Date post',  type: 'date' }

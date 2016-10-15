@@ -192,7 +192,24 @@ div.loginbox div span.help-block{
   color: #fff;
 }
 
-/* end login page*/
+
+/* signup page*/
+.signupbox{
+ background-color: rgba(66,66,66,0.8);  
+  padding: 10%;
+  margin: auto;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.signupbox input[type="text"], .signupbox input[type="password"] {
+  border: medium none;
+  border-radius: 4px;
+  color: #424242;
+  padding: 5px;
+  width: 100%;
+}
+/*homepage*/
 .intro{
   display: table;
   width: 100%;
