@@ -27,7 +27,7 @@
                  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <p class="text-index">Welcome {{app.user.username}}, start discovering!</p>
                  {% else %}
-                   <p class="brand-heading">New to Wanderlust Sardinia ?</p>
+                   <h1 class="brand-heading">New to Wanderlust Sardinia ?</h1>
                    <p class="text-index">Here you can discover new places and help the community with you own experiences.<br>
                     <a href="{{ path('fos_user_security_login') }}">Login</a> or <a href="{{ path('fos_user_registration_register') }}">Register</a> to start exploring !</p>
                 {% endif %}
